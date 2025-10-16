@@ -1,15 +1,13 @@
 const number = [];
 
 for (let i = 0; i < 7; i++) {
-  let input = prompt(`Entre number ${i + 1} :`);
-  let nombre = parseInt(input, 10);
+  let nombre = parseInt(prompt(`Entre number ${i + 1} :`));
 
   while (isNaN(nombre)) {
-    input = prompt(`Entre number ${i + 1} :`);
-    nombre = parseInt(input, 10);
+    nmr = parseInt(prompt(`Entre number ${i + 1} :`));
   }
 
-  number.push(nombre);
+  number.push(nmr);
 }
 
 const grand = Math.max(...number);
