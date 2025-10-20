@@ -26,6 +26,7 @@ function division(a, b) {
 function puissance(a, b) {
     return Math.pow(a,b)
 }
+
 function racinecarree(a) {
     return Math.sqrt(a)
 }
