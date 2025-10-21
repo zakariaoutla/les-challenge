@@ -149,3 +149,10 @@ while (true) {
 
 
 
+
+console.log("5. Supprimer une tâche");
+        console.log("6. Marquer une tâche comme terminée");
+        console.log("7. Afficher tâches terminées / en attente");
+
+
+
