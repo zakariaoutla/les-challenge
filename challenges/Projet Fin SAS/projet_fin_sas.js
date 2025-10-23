@@ -54,8 +54,9 @@ function showliver() {
             console.log(`auteur: ${livres[i].auteur}`);
             console.log(`annee: ${livres[i].annee}`);
             console.log(`disponible: ${livres[i].disponible ? "oui" : "non"}`);
-
+            
         }
+        console.log("------------");
     }
 }
 
@@ -143,20 +144,23 @@ function orderTrierparanne() {
 // Cette fonction Afficher uniquement les livres disponibles
 function uniquement() {
     let found = false;
+
     for (let i = 0; i < livres.length; i++) {
         if (livres[i].disponible === true) {
-            console.log(livres[i].titre);
-            console.log(livres[i].auteur);
-            console.log(livres[i].annee);
-            console.log(livres[i].disponible);
-            found = true
-
+            console.log("Titre :", livres[i].titre);
+            console.log("Auteur :", livres[i].auteur);
+            console.log("Année :", livres[i].annee);
+            console.log("Disponible :", livres[i].disponible);
+            console.log("------------");
+            found = true;
         }
     }
+
     if (!found) {
-        console.log("aucun livers");
+        console.log("aucun livres");
     }
 }
+
 
 // Cette fonction Rechercher un livre par ID_livre
 function rechercher() {
