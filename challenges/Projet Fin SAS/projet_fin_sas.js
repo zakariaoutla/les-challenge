@@ -1,29 +1,16 @@
 const prompt = require("prompt-sync")();
 
-
+// Déclaration d'un tableau Livers
 let livres = [
     { id_livre: 1, titre: "Le Petit Prince", auteur: "Saint-Exupéry", annee: 1943, disponible: true },
-    { id_livre: 2, titre: "L'Étranger", auteur: "Camus", annee: 1942, disponible: false }
-];
-
-let abonnes = [
-  { id: 1, nom: "outla", prenom: "zakaria", email: "zakariaoutla@mail.com" }
+    { id_livre: 2, titre: "ztranger", auteur: "Camus", annee: 1942, disponible: false }
 ];
 
 
-function menu() {
-    console.log("====Menu principal====");
-    console.log("1. Introduire un livre");
-    console.log("2. Ajouter plusieurs livres");
-    console.log("3. Opérations sur les livres");
-    console.log("0. Quitter");
-
-    let choix = Number(prompt("Entre choix : "))
-    return choix
-}
 
 
 
+// Cette fonction permet d'ajouter un nouveau livre
 function ajouteunliver() {
 
     let id = Number(prompt(`Entrez le id du livre: `))
@@ -44,6 +31,8 @@ function ajouteunliver() {
     )
 }
 
+
+// Cette fonction permet d'ajouter plusieur livres
 function plusieursliver() {
     let livre = Number(prompt("Ecrivez combien de livers vous souhaitez ajouter: "))
 
@@ -53,7 +42,7 @@ function plusieursliver() {
 }
 
 
-
+// Cette fonction affiche les livres
 function showliver() {
     if (livres.length === 0) {
         console.log("aucun livers");
@@ -70,6 +59,106 @@ function showliver() {
     }
 }
 
+
+// Cette fonction Trier les livres par titre (ascendant/descendant)
+function trierParTitre(livres, ordre) {
+    for (let i = 0; i < livres.length - 1; i++) {
+        for (let j = i + 1; j < livres.length; j++) {
+            const titre1 = livres[i].titre.toLowerCase();
+            const titre2 = livres[j].titre.toLowerCase();
+
+            if (
+                (ordre === "asc" && titre1 > titre2) ||
+                (ordre === "desc" && titre1 < titre2)
+            ) {
+                const temp = livres[i];
+                livres[i] = livres[j];
+                livres[j] = temp;
+            }
+        }
+    }
+}
+
+function orderTrierpartitre() {
+    const choix = prompt("Choix ordre (1 - Ascendant / 2 - Descendant): ");
+
+    if (choix === "1") {
+        trierParTitre(livres, "asc");
+    } else if (choix === "2") {
+        trierParTitre(livres, "desc");
+    } else {
+        console.log("Choix invalide");
+        return;
+    }
+
+    console.log("Liste des livres triés :");
+    for (let livre of livres) {
+        console.log(
+            `ID: ${livre.id_livre}, Titre: ${livre.titre}, Auteur: ${livre.auteur}, Année: ${livre.annee}, Disponible: ${livre.disponible ? "Oui" : "Non"}`
+        );
+    }
+}
+
+
+// Cette fonction Trier les livres par année de publication
+function trierParAnne(livres, ordre) {
+    for (let i = 0; i < livres.length - 1; i++) {
+        for (let j = i + 1; j < livres.length; j++) {
+            const anne1 = livres[i].annee;
+            const anne2 = livres[j].annee;
+
+            if (
+                (ordre === "asc" && anne1 > anne2) ||
+                (ordre === "desc" && anne1 < anne2)
+            ) {
+                const temp = livres[i];
+                livres[i] = livres[j];
+                livres[j] = temp;
+            }
+        }
+    }
+}
+
+function orderTrierparanne() {
+    const choix = prompt("Choix ordre (1 - Ascendant / 2 - Descendant): ");
+
+    if (choix === "1") {
+        trierParAnne(livres, "asc");
+    } else if (choix === "2") {
+        trierParAnne(livres, "desc");
+    } else {
+        console.log("Choix invalide");
+        return;
+    }
+
+    console.log("Liste des livres triés :");
+    for (let livre of livres) {
+        console.log(
+            `ID: ${livre.id_livre}, Titre: ${livre.titre}, Auteur: ${livre.auteur}, Année: ${livre.annee}, Disponible: ${livre.disponible ? "Oui" : "Non"}`
+        );
+    }
+}
+
+
+// Cette fonction Afficher uniquement les livres disponibles
+function uniquement() {
+    let found = false;
+    for (let i = 0; i < livres.length; i++) {
+        if (livres[i].disponible === true) {
+            console.log(livres[i].titre);
+            console.log(livres[i].auteur);
+            console.log(livres[i].annee);
+            console.log(livres[i].disponible);
+            found = true
+
+        }
+    }
+    if (!found) {
+        console.log("aucun livers");
+    }
+}
+
+// Cette fonction Rechercher un livre par ID_livre
 function rechercher() {
     let res = Number(prompt("Entre number Rechercher ID: "));
     let result = null;
@@ -89,25 +178,22 @@ function rechercher() {
 }
 
 
-function uniquement() {
-    let found = false;
-    for (let i = 0; i < livres.length; i++) {
-        if (livres[i].disponible === true) {
-            console.log(livres[i].titre);
-            console.log(livres[i].auteur);
-            console.log(livres[i].annee);
-            console.log(livres[i].disponible);
-            found = true
+// Cette fonction Menu principal
+function menu() {
+    console.log("====Menu principal====");
+    console.log("1. Introduire un livre");
+    console.log("2. Ajouter plusieurs livres");
+    console.log("3. Opérations sur les livres");
+    console.log("0. Quitter");
 
-        }
-    }
-    if (!found) {
-        console.log("aucun livers");
-    }
+    let choix = Number(prompt("Entre choix : "))
+    return choix
 }
 
+
+// Cette fonction Menu Opérations sur les livres
 function menuliver() {
-    let choixLivres;
+    let choix;
     do {
         console.log("===== Opérations sur les livres =====");
         console.log("1. Afficher tous les livres");
@@ -117,43 +203,34 @@ function menuliver() {
         console.log("5. Rechercher un livre par ID");
         console.log("6. Retour au menu principal");
 
-        choixLivres = Number(prompt("Entre choix : "));
+        choix = Number(prompt("Entre choix : "));
 
-        switch (choixLivres) {
+        switch (choix) {
             case 1:
-                console.log("--- Tous les livres ---");
                 showliver();
                 break;
 
             case 2:
-                console.log("--- Trier les livres par titre ---");
-                
+                orderTrierpartitre()
                 break;
 
             case 3:
-                console.log("--- Trier les livres par année ---");
-               
+                orderTrierparanne()
                 break;
-
             case 4:
-                console.log("--- Livres disponibles ---");
                 uniquement();
                 break;
-
             case 5:
-                console.log("--- Rechercher un livre ---");
                 rechercher();
                 break;
-
             case 6:
-                console.log("Retour au menu principal...");
+                console.log("Retour au menu principal");
                 break;
-
             default:
-                console.log("Choix invalide !");
+                console.log("Choix invalide");
         }
 
-    } while (choixLivres !== 6);
+    } while (choix !== 6);
 
 }
 
@@ -163,6 +240,7 @@ function menuliver() {
 
 
 
+// Cette fonction run application
 
 function run() {
     let choix;
